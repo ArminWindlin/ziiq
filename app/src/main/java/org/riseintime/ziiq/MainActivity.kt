@@ -2,11 +2,13 @@ package org.riseintime.ziiq
 
 import android.os.Bundle
 import android.support.design.widget.Snackbar
+import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu
 import android.view.MenuItem
 
 import kotlinx.android.synthetic.main.activity_main.*
+import org.riseintime.ziiq.fragment.MyAccountFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -32,8 +34,19 @@ class MainActivity : AppCompatActivity() {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         return when (item.itemId) {
-            R.id.action_settings -> true
+            R.id.action_settings -> {
+                replaceFragment(MyAccountFragment())
+                true
+            }
+            R.id.action_my_questions -> true
             else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    private fun replaceFragment(fragment: Fragment) {
+        supportFragmentManager.beginTransaction().apply {
+            replace(R.id.fragment_layout, fragment)
+            commit()
         }
     }
 }

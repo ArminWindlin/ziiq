@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "1025151676045",
+    "firebase_url": "https://ziiq-5b030.firebaseio.com",
+    "project_id": "ziiq-5b030",
+    "storage_bucket": "ziiq-5b030.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1025151676045:android:66d90849607d5a3e",
+        "android_client_info": {
+          "package_name": "org.riseintime.ziiq"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1025151676045-imsbkf133sk5j4p58eacc0g8ovdu914c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC5PQFmLtXppQ9-RqT1RQfESK-jrR8FwZo"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
