@@ -11,9 +11,14 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".NewQuestionActivity"
-                  android:label="Make your own Question!"
+        <activity android:name=".QuestionDetailActivity"
+                  android:label="Your Question"
                   android:parentActivityName=".MyQuestionsActivity">
+        </activity>
+        <activity
+                android:name=".NewQuestionActivity"
+                android:label="Make your own Question!"
+                android:parentActivityName=".MyQuestionsActivity">
         </activity>
         <activity
                 android:name=".SplashActivity"
