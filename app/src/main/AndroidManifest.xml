@@ -11,9 +11,9 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".SettingsActivity"
-                  android:parentActivityName="org.riseintime.ziiq.MainActivity"
-                  android:label="Settings">
+        <activity android:name=".NewQuestionActivity"
+                  android:label="Make your own Question!"
+                  android:parentActivityName=".MyQuestionsActivity">
         </activity>
         <activity
                 android:name=".SplashActivity"
@@ -32,6 +32,16 @@
                 android:name=".MainActivity"
                 android:label="@string/app_name"
                 android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+                android:name=".MyQuestionsActivity"
+                android:label="My Questions"
+                android:parentActivityName=".MainActivity">
+        </activity>
+        <activity
+                android:name=".SettingsActivity"
+                android:label="Settings"
+                android:parentActivityName=".MainActivity">
         </activity>
     </application>
 
