@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          xmlns:tools="http://schemas.android.com/tools" package="org.riseintime.ziiq">
+          xmlns:tools="http://schemas.android.com/tools"
+          package="org.riseintime.ziiq">
 
     <application
             android:allowBackup="true"
@@ -10,16 +11,22 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".SplashActivity"
-                  android:theme="@style/SplashTheme">
+        <activity android:name=".SettingsActivity"
+                  android:parentActivityName="org.riseintime.ziiq.MainActivity"
+                  android:label="Settings">
+        </activity>
+        <activity
+                android:name=".SplashActivity"
+                android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".SignInActivity"
-                  android:label="Sign in label">
+        <activity
+                android:name=".SignInActivity"
+                android:label="Sign in label">
         </activity>
         <activity
                 android:name=".MainActivity"

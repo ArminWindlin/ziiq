@@ -1,11 +1,15 @@
 package org.riseintime.ziiq
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import android.widget.Toast
 
 import kotlinx.android.synthetic.main.activity_main.*
 import org.riseintime.ziiq.fragment.MyAccountFragment
@@ -35,7 +39,7 @@ class MainActivity : AppCompatActivity() {
         // as you specify a parent activity in AndroidManifest.xml.
         return when (item.itemId) {
             R.id.action_settings -> {
-                replaceFragment(MyAccountFragment())
+                openSettingsActivity()
                 true
             }
             R.id.action_my_questions -> true
@@ -43,10 +47,8 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun replaceFragment(fragment: Fragment) {
-        supportFragmentManager.beginTransaction().apply {
-            replace(R.id.fragment_layout, fragment)
-            commit()
-        }
+    fun openSettingsActivity() {
+        val intent = Intent(this, SettingsActivity::class.java)
+        startActivity(intent)
     }
 }
