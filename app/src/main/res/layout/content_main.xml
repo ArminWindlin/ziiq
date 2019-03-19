@@ -23,6 +23,7 @@
             app:layout_constraintVertical_bias="0.137"
             android:id="@+id/main_question_text"/>
     <Button
+            android:onClick="newQuestion"
             android:text="Button"
             android:layout_width="0dp"
             app:layout_constraintWidth_percent="0.5"
@@ -31,13 +32,14 @@
             android:background="@color/option1"
             tools:layout_editor_absoluteY="222dp"
             tools:layout_editor_absoluteX="81dp"
-            app:layout_constraintBottom_toTopOf="@id/button3"
+            app:layout_constraintBottom_toTopOf="@id/main_option_3"
             app:layout_constraintTop_toBottomOf="@id/main_question_text"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toLeftOf="@id/button2"
+            app:layout_constraintRight_toLeftOf="@id/main_option_2"
             app:layout_constraintVertical_bias="0.4"
-            android:id="@+id/button"/>
+            android:id="@+id/main_option_1"/>
     <Button
+            android:onClick="newQuestion"
             android:text="Button"
             android:layout_width="0dp"
             app:layout_constraintWidth_percent="0.5"
@@ -45,14 +47,15 @@
             app:layout_constraintHeight_percent="0.3"
             android:background="@color/option2"
             tools:layout_editor_absoluteY="222dp"
-            app:layout_constraintBottom_toTopOf="@id/button4"
+            app:layout_constraintBottom_toTopOf="@id/main_option_4"
             app:layout_constraintTop_toBottomOf="@id/main_question_text"
-            app:layout_constraintLeft_toRightOf="@id/button"
+            app:layout_constraintLeft_toRightOf="@id/main_option_1"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintVertical_bias="0.4"
             tools:layout_editor_absoluteX="254dp"
-            android:id="@+id/button2"/>
+            android:id="@+id/main_option_2"/>
     <Button
+            android:onClick="newQuestion"
             android:text="Button"
             android:layout_width="0dp"
             app:layout_constraintWidth_percent="0.5"
@@ -61,13 +64,14 @@
             android:background="@color/option3"
             tools:layout_editor_absoluteY="222dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/button"
+            app:layout_constraintTop_toBottomOf="@id/main_option_1"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toLeftOf="@id/button4"
+            app:layout_constraintRight_toLeftOf="@id/main_option_4"
             app:layout_constraintVertical_bias="0.6"
             tools:layout_editor_absoluteX="254dp"
-            android:id="@+id/button3"/>
+            android:id="@+id/main_option_3"/>
     <Button
+            android:onClick="newQuestion"
             android:text="Button"
             android:layout_width="0dp"
             app:layout_constraintWidth_percent="0.5"
@@ -76,11 +80,11 @@
             android:background="@color/option4"
             tools:layout_editor_absoluteY="222dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/button2"
-            app:layout_constraintLeft_toRightOf="@id/button3"
+            app:layout_constraintTop_toBottomOf="@id/main_option_2"
+            app:layout_constraintLeft_toRightOf="@id/main_option_3"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintVertical_bias="0.6"
             tools:layout_editor_absoluteX="254dp"
-            android:id="@+id/button4"/>
+            android:id="@+id/main_option_4"/>
 
 </android.support.constraint.ConstraintLayout>

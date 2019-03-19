@@ -10,9 +10,15 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
+import com.xwray.groupie.kotlinandroidextensions.Item
 
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.content_main.*
 import org.riseintime.ziiq.fragment.MyAccountFragment
+import org.riseintime.ziiq.model.Question
+import org.riseintime.ziiq.recyclerview.item.QuestionItem
 
 class MainActivity : AppCompatActivity() {
 
@@ -20,6 +26,28 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
+        initializeQuestion()
+    }
+
+    fun initializeQuestion() {
+        FirebaseFirestore.getInstance().collection("questions")
+            .whereLessThan("randomInt", (0..Int.MAX_VALUE).random())
+            .orderBy("randomInt",  Query.Direction.DESCENDING).limit(1).get()
+            .addOnSuccessListener { result ->
+                val question = result.first().toObject(Question::class.java)
+                main_question_text.text = question.text
+                main_option_1.text = question.answer1
+                main_option_2.text = question.answer2
+                main_option_3.text = question.answer3
+                main_option_4.text = question.answer4
+            }
+            .addOnFailureListener { exception ->
+                Log.d("FIREBASE", "Error getting documents: ", exception)
+            }
+    }
+
+    fun newQuestion(view: View){
+        initializeQuestion()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

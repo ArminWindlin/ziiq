@@ -22,8 +22,13 @@ class NewQuestionActivity : AppCompatActivity() {
 
     fun save(view: View) {
         val newQuestion = Question(
-            new_question_text.text.toString(),"","","","",
-            FirebaseAuth.getInstance().currentUser?.uid ?: ""
+            new_question_text.text.toString(),
+            new_question_a1.text.toString(),
+            new_question_a2.text.toString(),
+            new_question_a3.text.toString(),
+            new_question_a4.text.toString(),
+            FirebaseAuth.getInstance().currentUser?.uid ?: "",
+            (0..Int.MAX_VALUE).random()
         )
 
         FirebaseFirestore.getInstance().collection("questions").document().set(newQuestion).addOnSuccessListener {
