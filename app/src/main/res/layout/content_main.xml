@@ -23,7 +23,7 @@
             app:layout_constraintVertical_bias="0.137"
             android:id="@+id/main_question_text"/>
     <Button
-            android:onClick="newQuestion"
+            android:onClick="submitAnswer"
             android:text="Button"
             android:layout_width="0dp"
             app:layout_constraintWidth_percent="0.5"
@@ -39,7 +39,7 @@
             app:layout_constraintVertical_bias="0.4"
             android:id="@+id/main_option_1"/>
     <Button
-            android:onClick="newQuestion"
+            android:onClick="submitAnswer"
             android:text="Button"
             android:layout_width="0dp"
             app:layout_constraintWidth_percent="0.5"
@@ -55,7 +55,7 @@
             tools:layout_editor_absoluteX="254dp"
             android:id="@+id/main_option_2"/>
     <Button
-            android:onClick="newQuestion"
+            android:onClick="submitAnswer"
             android:text="Button"
             android:layout_width="0dp"
             app:layout_constraintWidth_percent="0.5"
@@ -71,7 +71,7 @@
             tools:layout_editor_absoluteX="254dp"
             android:id="@+id/main_option_3"/>
     <Button
-            android:onClick="newQuestion"
+            android:onClick="submitAnswer"
             android:text="Button"
             android:layout_width="0dp"
             app:layout_constraintWidth_percent="0.5"

@@ -7,7 +7,15 @@ data class Question(
     val answer3: String,
     val answer4: String,
     val user: String,
-    val randomInt: Int
+    val lang: String,
+    val correctAnswer: Int,
+    val randomInt: Int,
+    val solves: Int,
+    val likes: Int,
+    val dislikes: Int
 ) {
-    constructor() : this("", "", "", "", "", "", 0)
+    constructor() : this(
+        "", "", "", "", "", "", "",
+        0, 0, 0, 0, 0
+    )
 }

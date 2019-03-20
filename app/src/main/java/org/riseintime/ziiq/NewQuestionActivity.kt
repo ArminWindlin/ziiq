@@ -3,6 +3,7 @@ package org.riseintime.ziiq
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.RadioButton
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -15,12 +16,29 @@ import org.riseintime.ziiq.util.FirestoreUtil
 
 class NewQuestionActivity : AppCompatActivity() {
 
+    private var correctAnswer: Int = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_new_question)
     }
 
     fun save(view: View) {
+
+        if (correctAnswer == 0) {
+            Toast.makeText(applicationContext, "Mark correct answer", Toast.LENGTH_SHORT).show()
+            return
+        }
+        if (new_question_text.text.toString() == "" ||
+            new_question_a1.text.toString() == "" ||
+            new_question_a2.text.toString() == "" ||
+            new_question_a3.text.toString() == "" ||
+            new_question_a4.text.toString() == ""
+        ) {
+            Toast.makeText(applicationContext, "Fill out all fields", Toast.LENGTH_SHORT).show()
+            return
+        }
+
         val newQuestion = Question(
             new_question_text.text.toString(),
             new_question_a1.text.toString(),
@@ -28,12 +46,29 @@ class NewQuestionActivity : AppCompatActivity() {
             new_question_a3.text.toString(),
             new_question_a4.text.toString(),
             FirebaseAuth.getInstance().currentUser?.uid ?: "",
-            (0..Int.MAX_VALUE).random()
+            "en",
+            correctAnswer, (0..Int.MAX_VALUE).random(), 0, 0, 0
         )
 
         FirebaseFirestore.getInstance().collection("questions").document().set(newQuestion).addOnSuccessListener {
             new_question_text.text?.clear()
             Toast.makeText(applicationContext, "Added", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    fun onRadioButtonClicked(view: View) {
+        if (view is RadioButton) {
+
+            when (view.getId()) {
+                R.id.radioButton1 ->
+                    correctAnswer = 1
+                R.id.radioButton2 ->
+                    correctAnswer = 2
+                R.id.radioButton3 ->
+                    correctAnswer = 3
+                R.id.radioButton4 ->
+                    correctAnswer = 4
+            }
         }
     }
 }

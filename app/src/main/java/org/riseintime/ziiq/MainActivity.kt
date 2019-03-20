@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
+import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log
 import android.view.Menu
@@ -22,6 +23,8 @@ import org.riseintime.ziiq.recyclerview.item.QuestionItem
 
 class MainActivity : AppCompatActivity() {
 
+    private var correctAnswer: Int = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -32,7 +35,7 @@ class MainActivity : AppCompatActivity() {
     fun initializeQuestion() {
         FirebaseFirestore.getInstance().collection("questions")
             .whereLessThan("randomInt", (0..Int.MAX_VALUE).random())
-            .orderBy("randomInt",  Query.Direction.DESCENDING).limit(1).get()
+            .orderBy("randomInt", Query.Direction.DESCENDING).limit(1).get()
             .addOnSuccessListener { result ->
                 val question = result.first().toObject(Question::class.java)
                 main_question_text.text = question.text
@@ -40,13 +43,14 @@ class MainActivity : AppCompatActivity() {
                 main_option_2.text = question.answer2
                 main_option_3.text = question.answer3
                 main_option_4.text = question.answer4
+                correctAnswer = question.correctAnswer
             }
             .addOnFailureListener { exception ->
                 Log.d("FIREBASE", "Error getting documents: ", exception)
             }
     }
 
-    fun newQuestion(view: View){
+    fun newQuestion(view: View) {
         initializeQuestion()
     }
 
@@ -71,6 +75,44 @@ class MainActivity : AppCompatActivity() {
             }
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    fun submitAnswer(view: View) {
+        var selectedAnswer: Int = -1
+        when (view.getId()) {
+            R.id.main_option_1 ->
+                selectedAnswer = 1
+            R.id.main_option_2 ->
+                selectedAnswer = 2
+            R.id.main_option_3 ->
+                selectedAnswer = 3
+            R.id.main_option_4 ->
+                selectedAnswer = 4
+        }
+
+
+
+        val builder = AlertDialog.Builder(this@MainActivity)
+
+        if (selectedAnswer == correctAnswer)
+            builder.setTitle("Correct!")
+        else
+            builder.setTitle("Wrong!")
+
+        builder.setMessage("Nice!")
+
+        builder.setPositiveButton("Next Question") { _, _ ->
+            initializeQuestion()
+        }
+
+        /*      builder.setNeutralButton(R.string.participation_home) { _, _ ->
+                  val intent = Intent(this, StoriesActivity::class.java)
+                  startActivity(intent)
+              }*/
+
+        val dialog: AlertDialog = builder.create()
+
+        dialog.show()
     }
 
     fun openSettingsActivity() {

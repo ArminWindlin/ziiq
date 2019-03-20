@@ -19,65 +19,71 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintVertical_bias="0.1"/>
 
-    <EditText
-            android:id="@+id/new_question_a1"
-            android:inputType="text"
+    <LinearLayout
             android:layout_width="0dp"
             app:layout_constraintWidth_percent="0.8"
-            android:layout_height="50dp"
-            android:layout_margin="10dp"
-            android:hint="Answer 1"
+            android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintVertical_bias="0.3"
-            app:layout_constraintHorizontal_bias="0"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintHorizontal_bias="0"
+            android:orientation="vertical">
+        <EditText
+                android:id="@+id/new_question_a1"
+                android:inputType="text"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_margin="10dp"
+                android:hint="Answer 1"
+                app:layout_constraintBottom_toTopOf="@id/new_question_a2"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintVertical_bias="1"
+                app:layout_constraintHorizontal_bias="0"/>
 
-    <EditText
-            android:id="@+id/new_question_a2"
-            android:inputType="text"
-            android:layout_width="0dp"
-            app:layout_constraintWidth_percent="0.8"
-            android:layout_height="50dp"
-            android:layout_margin="10dp"
-            android:hint="Answer 2"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintVertical_bias="0.4"
-            app:layout_constraintHorizontal_bias="0"/>
+        <EditText
+                android:id="@+id/new_question_a2"
+                android:inputType="text"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_margin="10dp"
+                android:hint="Answer 2"
+                app:layout_constraintBottom_toTopOf="@id/new_question_a3"
+                app:layout_constraintTop_toBottomOf="@id/new_question_a1"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintHorizontal_bias="0"/>
 
-    <EditText
-            android:id="@+id/new_question_a3"
-            android:inputType="text"
-            android:layout_width="0dp"
-            app:layout_constraintWidth_percent="0.8"
-            android:layout_height="50dp"
-            android:layout_margin="10dp"
-            android:hint="Answer 3"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintVertical_bias="0.5"
-            app:layout_constraintHorizontal_bias="0"/>
+        <EditText
+                android:id="@+id/new_question_a3"
+                android:inputType="text"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_margin="10dp"
+                android:hint="Answer 3"
+                app:layout_constraintBottom_toTopOf="@id/new_question_a4"
+                app:layout_constraintTop_toBottomOf="@id/new_question_a2"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintHorizontal_bias="0"/>
 
-    <EditText
-            android:id="@+id/new_question_a4"
-            android:inputType="text"
-            android:layout_width="0dp"
-            app:layout_constraintWidth_percent="0.8"
-            android:layout_height="50dp"
-            android:layout_margin="10dp"
-            android:hint="Answer 4"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintVertical_bias="0.6"
-            app:layout_constraintHorizontal_bias="0"/>
+        <EditText
+                android:id="@+id/new_question_a4"
+                android:inputType="text"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_margin="10dp"
+                android:hint="Answer 4"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/new_question_a3"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintVertical_bias="1"
+                app:layout_constraintHorizontal_bias="0"/>
+    </LinearLayout>
 
     <Button
             android:id="@+id/btn_save"
@@ -108,11 +114,12 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintHorizontal_bias="1"
-            android:orientation="vertical" app:layout_constraintVertical_bias="0.43">
+            android:orientation="vertical">
         <RadioButton
+                android:onClick="onRadioButtonClicked"
                 android:text=""
                 android:layout_width="wrap_content"
-                android:layout_height="50dp"
+                android:layout_height="40dp"
                 android:layout_margin="10dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -120,9 +127,10 @@
                 app:layout_constraintRight_toRightOf="parent"
                 android:id="@+id/radioButton1"/>
         <RadioButton
+                android:onClick="onRadioButtonClicked"
                 android:text=""
                 android:layout_width="wrap_content"
-                android:layout_height="50dp"
+                android:layout_height="40dp"
                 android:layout_margin="10dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/radioButton1"
@@ -130,9 +138,10 @@
                 app:layout_constraintRight_toRightOf="parent"
                 android:id="@+id/radioButton2"/>
         <RadioButton
+                android:onClick="onRadioButtonClicked"
                 android:text=""
                 android:layout_width="wrap_content"
-                android:layout_height="50dp"
+                android:layout_height="40dp"
                 android:layout_margin="10dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/radioButton2"
@@ -140,9 +149,10 @@
                 app:layout_constraintRight_toRightOf="parent"
                 android:id="@+id/radioButton3"/>
         <RadioButton
+                android:onClick="onRadioButtonClicked"
                 android:text=""
                 android:layout_width="wrap_content"
-                android:layout_height="50dp"
+                android:layout_height="40dp"
                 android:layout_margin="10dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/radioButton3"
