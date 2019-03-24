@@ -11,6 +11,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
+import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import com.xwray.groupie.kotlinandroidextensions.Item
@@ -22,8 +23,11 @@ import org.riseintime.ziiq.model.Question
 import org.riseintime.ziiq.recyclerview.item.QuestionItem
 
 class MainActivity : AppCompatActivity() {
+    private val db: FirebaseFirestore by lazy { FirebaseFirestore.getInstance() }
+    private val TAG = MainActivity::class.java.simpleName
 
     private var correctAnswer: Int = 0
+    private lateinit var questionId: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,12 +36,13 @@ class MainActivity : AppCompatActivity() {
         initializeQuestion()
     }
 
-    fun initializeQuestion() {
+    private fun initializeQuestion() {
         FirebaseFirestore.getInstance().collection("questions")
             .whereLessThan("randomInt", (0..Int.MAX_VALUE).random())
             .orderBy("randomInt", Query.Direction.DESCENDING).limit(1).get()
             .addOnSuccessListener { result ->
                 val question = result.first().toObject(Question::class.java)
+                questionId = question.id
                 main_question_text.text = question.text
                 main_option_1.text = question.answer1
                 main_option_2.text = question.answer2
@@ -91,7 +96,6 @@ class MainActivity : AppCompatActivity() {
         }
 
 
-
         val builder = AlertDialog.Builder(this@MainActivity)
 
         if (selectedAnswer == correctAnswer)
@@ -113,14 +117,40 @@ class MainActivity : AppCompatActivity() {
         val dialog: AlertDialog = builder.create()
 
         dialog.show()
+
+        updateQuestion(selectedAnswer)
     }
 
-    fun openSettingsActivity() {
+    private fun updateQuestion(choice: Int) {
+        val qDocRef = FirebaseFirestore.getInstance().collection("questions").document(questionId)
+
+        db.runTransaction { transaction ->
+            val snapshot = transaction.get(qDocRef)
+            val newSolves = snapshot.getLong("solves")!! + 1
+            transaction.update(qDocRef, "solves", newSolves)
+            when (choice) {
+                1 ->
+                    transaction.update(qDocRef, "choice1", snapshot.getLong("choice1")!! + 1)
+                2 ->
+                    transaction.update(qDocRef, "choice2", snapshot.getLong("choice2")!! + 1)
+                3 ->
+                    transaction.update(qDocRef, "choice3", snapshot.getLong("choice3")!! + 1)
+                4 ->
+                    transaction.update(qDocRef, "choice4", snapshot.getLong("choice4")!! + 1)
+            }
+
+            // Success
+            null
+        }.addOnSuccessListener { Log.d(TAG, "Increased solves of question! $questionId") }
+            .addOnFailureListener { e -> Log.w(TAG, "Failed to update question $questionId", e) }
+    }
+
+    private fun openSettingsActivity() {
         val intent = Intent(this, SettingsActivity::class.java)
         startActivity(intent)
     }
 
-    fun openMyQuestionsActivity() {
+    private fun openMyQuestionsActivity() {
         val intent = Intent(this, MyQuestionsActivity::class.java)
         startActivity(intent)
     }

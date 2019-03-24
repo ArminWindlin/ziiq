@@ -17,6 +17,9 @@ import org.riseintime.ziiq.util.FirestoreUtil
 class NewQuestionActivity : AppCompatActivity() {
 
     private var correctAnswer: Int = 0
+    private val newQuestionId: String by lazy {
+        FirebaseFirestore.getInstance().collection(FirestoreKey.QUESTIONS).document().id
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,6 +43,7 @@ class NewQuestionActivity : AppCompatActivity() {
         }
 
         val newQuestion = Question(
+            newQuestionId,
             new_question_text.text.toString(),
             new_question_a1.text.toString(),
             new_question_a2.text.toString(),
@@ -47,13 +51,18 @@ class NewQuestionActivity : AppCompatActivity() {
             new_question_a4.text.toString(),
             FirebaseAuth.getInstance().currentUser?.uid ?: "",
             "en",
-            correctAnswer, (0..Int.MAX_VALUE).random(), 0, 0, 0
+            correctAnswer, (0..Int.MAX_VALUE).random(), 0, 0, 0, 0, 0, 0, 0
         )
 
-        FirebaseFirestore.getInstance().collection("questions").document().set(newQuestion).addOnSuccessListener {
-            new_question_text.text?.clear()
-            Toast.makeText(applicationContext, "Added", Toast.LENGTH_SHORT).show()
-        }
+        FirebaseFirestore.getInstance().collection("questions").document(newQuestionId).set(newQuestion)
+            .addOnSuccessListener {
+                new_question_text.text?.clear()
+                new_question_a1.text.clear()
+                new_question_a2.text.clear()
+                new_question_a3.text.clear()
+                new_question_a4.text.clear()
+                Toast.makeText(applicationContext, "Added", Toast.LENGTH_SHORT).show()
+            }
     }
 
     fun onRadioButtonClicked(view: View) {

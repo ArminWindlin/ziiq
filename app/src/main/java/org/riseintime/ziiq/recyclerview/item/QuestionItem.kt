@@ -9,6 +9,7 @@ import org.riseintime.ziiq.model.Question
 class QuestionItem (val question: Question) : Item() {
     override fun bind(viewHolder: ViewHolder, position: Int) {
         viewHolder.question_item_text.text = question.text
+        viewHolder.question_item_solves.text = "Solves: " + question.solves
     }
 
     override fun getLayout() = R.layout.item_question
