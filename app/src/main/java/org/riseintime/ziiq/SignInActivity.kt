@@ -18,7 +18,7 @@ import org.riseintime.ziiq.util.FirestoreUtil
 
 class SignInActivity : AppCompatActivity() {
 
-    private val RC_SIGN_IN = 1;
+    private val RC_SIGN_IN = 1
 
     private val signInProviders = listOf(AuthUI.IdpConfig.EmailBuilder()
         .setAllowNewAccounts(true).setRequireName(true).build())

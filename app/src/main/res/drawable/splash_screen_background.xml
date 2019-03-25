@@ -5,5 +5,4 @@
         <bitmap android:src="@drawable/ziiq_logo_splash"
                 android:gravity="center"/>
     </item>
-
 </layer-list>
