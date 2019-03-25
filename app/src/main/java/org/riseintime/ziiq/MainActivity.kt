@@ -2,6 +2,7 @@ package org.riseintime.ziiq
 
 import android.content.Intent
 import android.os.Bundle
+import android.support.constraint.ConstraintLayout
 import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
 import android.support.v7.app.AlertDialog
@@ -20,12 +21,16 @@ import kotlinx.android.synthetic.main.content_main.*
 import org.riseintime.ziiq.fragment.MyAccountFragment
 import org.riseintime.ziiq.model.Question
 import org.riseintime.ziiq.recyclerview.item.QuestionItem
+import android.widget.LinearLayout
+import android.widget.TextView
+
 
 class MainActivity : AppCompatActivity() {
     private val db: FirebaseFirestore by lazy { FirebaseFirestore.getInstance() }
     private val TAG = MainActivity::class.java.simpleName
 
     private var correctAnswer: Int = 0
+    private var selectedAnswer: Int = -1
     private lateinit var questionId: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,7 +40,8 @@ class MainActivity : AppCompatActivity() {
         initializeQuestion()
     }
 
-    private fun initializeQuestion() {
+    fun initializeQuestion(view: View = findViewById(android.R.id.content)) {
+        changeUIBack()
         FirebaseFirestore.getInstance().collection("questions")
             .whereLessThan("randomInt", (0..Int.MAX_VALUE).random())
             .orderBy("randomInt", Query.Direction.DESCENDING).limit(1).get()
@@ -82,7 +88,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun submitAnswer(view: View) {
-        var selectedAnswer: Int = -1
+        changeUI()
+
         when (view.getId()) {
             R.id.main_option_1 ->
                 selectedAnswer = 1
@@ -94,30 +101,70 @@ class MainActivity : AppCompatActivity() {
                 selectedAnswer = 4
         }
 
-
+        /*
         val builder = AlertDialog.Builder(this@MainActivity)
-
         if (selectedAnswer == correctAnswer)
             builder.setTitle("Correct!")
         else
             builder.setTitle("Wrong!")
-
         builder.setMessage("Nice!")
-
         builder.setPositiveButton("Next Question") { _, _ ->
             initializeQuestion()
         }
-
-        /*      builder.setNeutralButton(R.string.participation_home) { _, _ ->
-                  val intent = Intent(this, StoriesActivity::class.java)
-                  startActivity(intent)
-              }*/
-
         val dialog: AlertDialog = builder.create()
-
         dialog.show()
+        */
 
         updateQuestion(selectedAnswer)
+    }
+
+    private fun changeUI() {
+        val ratingContainer = findViewById<View>(R.id.main_rating_container) as ConstraintLayout
+        val questionText = findViewById<View>(R.id.main_question_text) as TextView
+        val resultText = findViewById<View>(R.id.main_result_text) as TextView
+
+        val ratingContainerParams: ConstraintLayout.LayoutParams =
+            ratingContainer.layoutParams as ConstraintLayout.LayoutParams
+        val questionTextParams: ConstraintLayout.LayoutParams =
+            questionText.layoutParams as ConstraintLayout.LayoutParams
+        val resultTextParams: ConstraintLayout.LayoutParams =
+            resultText.layoutParams as ConstraintLayout.LayoutParams
+
+        ratingContainerParams.matchConstraintPercentHeight = 0.1F
+        ratingContainer.layoutParams = ratingContainerParams
+
+        questionTextParams.matchConstraintPercentHeight = 0.2F
+        questionText.layoutParams = questionTextParams
+
+        resultTextParams.matchConstraintPercentHeight = 0.1F
+        resultText.layoutParams = resultTextParams
+        if (selectedAnswer == correctAnswer)
+            resultText.text = getString(R.string.correct_answer)
+        else
+            resultText.text = getString(R.string.wrong_answer)
+    }
+
+    private fun changeUIBack() {
+        val ratingContainer = findViewById<View>(R.id.main_rating_container) as ConstraintLayout
+        val questionText = findViewById<View>(R.id.main_question_text) as TextView
+        val resultText = findViewById<View>(R.id.main_result_text) as TextView
+
+        val ratingContainerParams: ConstraintLayout.LayoutParams =
+            ratingContainer.layoutParams as ConstraintLayout.LayoutParams
+        val questionTextParams: ConstraintLayout.LayoutParams =
+            questionText.layoutParams as ConstraintLayout.LayoutParams
+        val resultTextParams: ConstraintLayout.LayoutParams =
+            resultText.layoutParams as ConstraintLayout.LayoutParams
+
+        ratingContainerParams.matchConstraintPercentHeight = 0F
+        ratingContainer.layoutParams = ratingContainerParams
+
+        questionTextParams.matchConstraintPercentHeight = 0.4F
+        questionText.layoutParams = questionTextParams
+
+        resultTextParams.matchConstraintPercentHeight = 0F
+        resultText.layoutParams = resultTextParams
+        resultText.text = ""
     }
 
     private fun updateQuestion(choice: Int) {
