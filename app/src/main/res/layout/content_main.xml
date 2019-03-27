@@ -9,6 +9,7 @@
         tools:showIn="@layout/activity_main"
         tools:context=".MainActivity">
 
+    <!-- QUESTION TEXT -->
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="0dp"
@@ -21,6 +22,8 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:id="@+id/main_question_text"/>
+
+    <!-- RESULT DISPLAY -->
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="0dp"
@@ -34,6 +37,8 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/main_question_text"
             android:id="@+id/main_result_text"/>
+
+    <!-- OPTION BUTTONS -->
     <Button
             android:onClick="submitAnswer"
             android:text="Button"
@@ -87,6 +92,57 @@
             app:layout_constraintRight_toRightOf="parent"
             android:id="@+id/main_option_4"/>
 
+    <!-- COVER BUTTONS -->
+    <Button
+            android:onClick="submitAnswer"
+            android:layout_width="0dp"
+            app:layout_constraintWidth_percent="0.5"
+            android:layout_height="0dp"
+            app:layout_constraintHeight_percent="0.3"
+            android:background="@android:color/transparent"
+            app:layout_constraintBottom_toTopOf="@id/main_option_3"
+            app:layout_constraintTop_toBottomOf="@id/main_result_text"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/main_option_2"
+            android:id="@+id/main_option_cover_1"/>
+    <Button
+            android:onClick="submitAnswer"
+            android:layout_width="0dp"
+            app:layout_constraintWidth_percent="0.5"
+            android:layout_height="0dp"
+            app:layout_constraintHeight_percent="0.3"
+            android:background="@android:color/transparent"
+            app:layout_constraintBottom_toTopOf="@id/main_option_4"
+            app:layout_constraintTop_toBottomOf="@id/main_result_text"
+            app:layout_constraintLeft_toRightOf="@id/main_option_1"
+            app:layout_constraintRight_toRightOf="parent"
+            android:id="@+id/main_option_cover_2"/>
+    <Button
+            android:onClick="submitAnswer"
+            android:layout_width="0dp"
+            app:layout_constraintWidth_percent="0.5"
+            android:layout_height="0dp"
+            app:layout_constraintHeight_percent="0.3"
+            android:background="@android:color/transparent"
+            app:layout_constraintBottom_toTopOf="@id/main_rating_container"
+            app:layout_constraintTop_toBottomOf="@id/main_option_1"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/main_option_4"
+            android:id="@+id/main_option_cover_3"/>
+    <Button
+            android:onClick="submitAnswer"
+            android:layout_width="0dp"
+            app:layout_constraintWidth_percent="0.5"
+            android:layout_height="0dp"
+            app:layout_constraintHeight_percent="0.3"
+            android:background="@android:color/transparent"
+            app:layout_constraintBottom_toTopOf="@id/main_rating_container"
+            app:layout_constraintTop_toBottomOf="@id/main_option_2"
+            app:layout_constraintLeft_toRightOf="@id/main_option_3"
+            app:layout_constraintRight_toRightOf="parent"
+            android:id="@+id/main_option_cover_4"/>
+
+    <!-- RATING -->
     <android.support.constraint.ConstraintLayout android:layout_width="match_parent"
                                                  android:layout_height="0dp"
                                                  app:layout_constraintHeight_percent="0.1"
@@ -98,15 +154,29 @@
                                                  app:layout_constraintEnd_toEndOf="parent"
                                                  app:layout_constraintStart_toStartOf="parent">
         <Button
-                android:onClick="initializeQuestion"
-                android:text="Like"
+                android:onClick="newQuestion"
+                android:text="Dislike"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@color/red"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintHorizontal_bias="0.7"
+                app:layout_constraintHorizontal_bias="0.1"
+                android:id="@+id/main_button_dislike"/>
+
+        <Button
+                android:onClick="newQuestion"
+                android:text="Like"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/green"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintHorizontal_bias="0.9"
                 android:id="@+id/main_button_like"/>
 
     </android.support.constraint.ConstraintLayout>

@@ -11,6 +11,7 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.Button
 import android.widget.Toast
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
@@ -23,6 +24,7 @@ import org.riseintime.ziiq.model.Question
 import org.riseintime.ziiq.recyclerview.item.QuestionItem
 import android.widget.LinearLayout
 import android.widget.TextView
+import org.jetbrains.anko.act
 
 
 class MainActivity : AppCompatActivity() {
@@ -31,7 +33,9 @@ class MainActivity : AppCompatActivity() {
 
     private var correctAnswer: Int = 0
     private var selectedAnswer: Int = -1
+    private var activeQuestion = true
     private lateinit var questionId: String
+    private lateinit var question: Question
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,13 +44,14 @@ class MainActivity : AppCompatActivity() {
         initializeQuestion()
     }
 
-    fun initializeQuestion(view: View = findViewById(android.R.id.content)) {
+    private fun initializeQuestion() {
+        activeQuestion = true
         changeUIBack()
         FirebaseFirestore.getInstance().collection("questions")
             .whereLessThan("randomInt", (0..Int.MAX_VALUE).random())
             .orderBy("randomInt", Query.Direction.DESCENDING).limit(1).get()
             .addOnSuccessListener { result ->
-                val question = result.first().toObject(Question::class.java)
+                question = result.first().toObject(Question::class.java)
                 questionId = question.id
                 main_question_text.text = question.text
                 main_option_1.text = question.answer1
@@ -62,6 +67,15 @@ class MainActivity : AppCompatActivity() {
 
     fun newQuestion(view: View) {
         initializeQuestion()
+        var like = false
+        when (view.getId()) {
+            R.id.main_button_dislike ->
+                like = false
+            R.id.main_button_like ->
+                like = true
+        }
+
+        updateQuestion(like)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -88,18 +102,21 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun submitAnswer(view: View) {
-        changeUI()
+        if (!activeQuestion) return
+        activeQuestion = false
 
         when (view.getId()) {
-            R.id.main_option_1 ->
+            R.id.main_option_cover_1 ->
                 selectedAnswer = 1
-            R.id.main_option_2 ->
+            R.id.main_option_cover_2 ->
                 selectedAnswer = 2
-            R.id.main_option_3 ->
+            R.id.main_option_cover_3 ->
                 selectedAnswer = 3
-            R.id.main_option_4 ->
+            R.id.main_option_cover_4 ->
                 selectedAnswer = 4
         }
+
+        changeUI()
 
         /*
         val builder = AlertDialog.Builder(this@MainActivity)
@@ -114,8 +131,6 @@ class MainActivity : AppCompatActivity() {
         val dialog: AlertDialog = builder.create()
         dialog.show()
         */
-
-        updateQuestion(selectedAnswer)
     }
 
     private fun changeUI() {
@@ -142,6 +157,53 @@ class MainActivity : AppCompatActivity() {
             resultText.text = getString(R.string.correct_answer)
         else
             resultText.text = getString(R.string.wrong_answer)
+
+        // Mark selected answer
+        when (selectedAnswer) {
+            1 -> {
+                val cover1 = findViewById<View>(R.id.main_option_cover_1) as Button
+                cover1.setBackgroundResource(R.drawable.button_border_red)
+            }
+            2 -> {
+                val cover2 = findViewById<View>(R.id.main_option_cover_2) as Button
+                cover2.setBackgroundResource(R.drawable.button_border_red)
+            }
+            3 -> {
+                val cover3 = findViewById<View>(R.id.main_option_cover_3) as Button
+                cover3.setBackgroundResource(R.drawable.button_border_red)
+            }
+            4 -> {
+                val cover4 = findViewById<View>(R.id.main_option_cover_4) as Button
+                cover4.setBackgroundResource(R.drawable.button_border_red)
+            }
+        }
+
+        // Mark correct answer
+        when (correctAnswer) {
+            1 -> {
+                val cover1 = findViewById<View>(R.id.main_option_cover_1) as Button
+                cover1.setBackgroundResource(R.drawable.button_border_green)
+            }
+            2 -> {
+                val cover2 = findViewById<View>(R.id.main_option_cover_2) as Button
+                cover2.setBackgroundResource(R.drawable.button_border_green)
+            }
+            3 -> {
+                val cover3 = findViewById<View>(R.id.main_option_cover_3) as Button
+                cover3.setBackgroundResource(R.drawable.button_border_green)
+            }
+            4 -> {
+                val cover4 = findViewById<View>(R.id.main_option_cover_4) as Button
+                cover4.setBackgroundResource(R.drawable.button_border_green)
+            }
+        }
+
+        // Add question percentages
+        val total = question.choice1 + question.choice2 + question.choice3 + question.choice4
+        main_option_cover_1.text = "\n\n\n" + (question.choice1 * 100 / total).toInt() + "%"
+        main_option_cover_2.text = "\n\n\n" + (question.choice2 * 100 / total).toInt() + "%"
+        main_option_cover_3.text = "\n\n\n" + (question.choice3 * 100 / total).toInt() + "%"
+        main_option_cover_4.text = "\n\n\n" + (question.choice4 * 100 / total).toInt() + "%"
     }
 
     private fun changeUIBack() {
@@ -165,16 +227,35 @@ class MainActivity : AppCompatActivity() {
         resultTextParams.matchConstraintPercentHeight = 0F
         resultText.layoutParams = resultTextParams
         resultText.text = ""
+
+        // remove answer marks
+        val cover1 = findViewById<View>(R.id.main_option_cover_1) as Button
+        cover1.setBackgroundResource(R.color.transparent)
+        val cover2 = findViewById<View>(R.id.main_option_cover_2) as Button
+        cover2.setBackgroundResource(R.color.transparent)
+        val cover3 = findViewById<View>(R.id.main_option_cover_3) as Button
+        cover3.setBackgroundResource(R.color.transparent)
+        val cover4 = findViewById<View>(R.id.main_option_cover_4) as Button
+        cover4.setBackgroundResource(R.color.transparent)
+        // remove percentages
+        main_option_cover_1.text = ""
+        main_option_cover_2.text = ""
+        main_option_cover_3.text = ""
+        main_option_cover_4.text = ""
     }
 
-    private fun updateQuestion(choice: Int) {
+    private fun updateQuestion(like: Boolean) {
         val qDocRef = FirebaseFirestore.getInstance().collection("questions").document(questionId)
 
         db.runTransaction { transaction ->
             val snapshot = transaction.get(qDocRef)
             val newSolves = snapshot.getLong("solves")!! + 1
             transaction.update(qDocRef, "solves", newSolves)
-            when (choice) {
+            if (like)
+                transaction.update(qDocRef, "likes", snapshot.getLong("likes")!! + 1)
+            else
+                transaction.update(qDocRef, "dislikes", snapshot.getLong("dislikes")!! + 1)
+            when (selectedAnswer) {
                 1 ->
                     transaction.update(qDocRef, "choice1", snapshot.getLong("choice1")!! + 1)
                 2 ->
