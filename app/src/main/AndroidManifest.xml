@@ -12,12 +12,12 @@
             android:theme="@style/AppTheme"
             tools:ignore="GoogleAppIndexingWarning">
         <activity android:name=".QuestionDetailActivity"
-                  android:label="Your Question"
+                  android:label="@string/your_question"
                   android:parentActivityName=".MyQuestionsActivity">
         </activity>
         <activity
                 android:name=".NewQuestionActivity"
-                android:label="Make your own Question!"
+                android:label="@string/make_question"
                 android:parentActivityName=".MyQuestionsActivity">
         </activity>
         <activity
@@ -31,7 +31,7 @@
         </activity>
         <activity
                 android:name=".SignInActivity"
-                android:label="Sign in label">
+                android:label="@string/sign_in">
         </activity>
         <activity
                 android:name=".MainActivity"
@@ -40,12 +40,12 @@
         </activity>
         <activity
                 android:name=".MyQuestionsActivity"
-                android:label="My Questions"
+                android:label="@string/action_my_questions"
                 android:parentActivityName=".MainActivity">
         </activity>
         <activity
                 android:name=".SettingsActivity"
-                android:label="Settings"
+                android:label="@string/action_settings"
                 android:parentActivityName=".MainActivity">
         </activity>
     </application>

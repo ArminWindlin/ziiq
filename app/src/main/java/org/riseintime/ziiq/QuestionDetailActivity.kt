@@ -21,7 +21,6 @@ class QuestionDetailActivity : AppCompatActivity() {
     private var correctAnswer: Int = 0
     private var selectedAnswer: Int = -1
     private var activeQuestion = true
-    private lateinit var questionId: String
     private lateinit var question: Question
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,7 +34,7 @@ class QuestionDetailActivity : AppCompatActivity() {
 
     private fun initializeQuestion(questionId: String) {
         activeQuestion = true
-        FirebaseFirestore.getInstance().collection("questions").document(questionId).get()
+        db.collection("questions").document(questionId).get()
             .addOnSuccessListener { result ->
                 question = result.toObject(Question::class.java)!!
                 main_question_text.text = question.text

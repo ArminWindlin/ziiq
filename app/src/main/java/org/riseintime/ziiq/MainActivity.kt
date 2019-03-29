@@ -25,6 +25,7 @@ import org.riseintime.ziiq.recyclerview.item.QuestionItem
 import android.widget.LinearLayout
 import android.widget.TextView
 import org.jetbrains.anko.act
+import java.util.*
 
 
 class MainActivity : AppCompatActivity() {
@@ -34,6 +35,7 @@ class MainActivity : AppCompatActivity() {
     private var correctAnswer: Int = 0
     private var selectedAnswer: Int = -1
     private var activeQuestion = true
+    private var loading = true
     private lateinit var questionId: String
     private lateinit var question: Question
 
@@ -48,6 +50,10 @@ class MainActivity : AppCompatActivity() {
         activeQuestion = true
         changeUIBack()
         FirebaseFirestore.getInstance().collection("questions")
+            .whereEqualTo(
+                "lang",
+                Locale.getDefault().getLanguage()
+            )
             .whereLessThan("randomInt", (0..Int.MAX_VALUE).random())
             .orderBy("randomInt", Query.Direction.DESCENDING).limit(1).get()
             .addOnSuccessListener { result ->
@@ -59,6 +65,7 @@ class MainActivity : AppCompatActivity() {
                 main_option_3.text = question.answer3
                 main_option_4.text = question.answer4
                 correctAnswer = question.correctAnswer
+                loading = false
             }
             .addOnFailureListener { exception ->
                 Log.d("FIREBASE", "Error getting documents: ", exception)
@@ -99,6 +106,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun submitAnswer(view: View) {
+        if(loading) return
         if (!activeQuestion) return
         activeQuestion = false
 

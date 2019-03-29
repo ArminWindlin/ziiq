@@ -22,6 +22,7 @@ import org.jetbrains.anko.startActivity
 import org.riseintime.ziiq.model.Question
 import org.riseintime.ziiq.recyclerview.item.QuestionItem
 import org.riseintime.ziiq.util.FirestoreUtil
+import java.util.*
 
 class MyQuestionsActivity : AppCompatActivity() {
 
@@ -44,6 +45,9 @@ class MyQuestionsActivity : AppCompatActivity() {
             .whereEqualTo(
                 "user",
                 FirebaseAuth.getInstance().uid ?: throw java.lang.NullPointerException("UID is null")
+            ).whereEqualTo(
+                "lang",
+                Locale.getDefault().getLanguage()
             ).get()
             .addOnSuccessListener { result ->
                 val items = mutableListOf<Item>()

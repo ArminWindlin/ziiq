@@ -13,6 +13,7 @@ import kotlinx.android.synthetic.main.fragment_my_account.*
 import org.riseintime.ziiq.model.Question
 import org.riseintime.ziiq.model.User
 import org.riseintime.ziiq.util.FirestoreUtil
+import java.util.*
 
 class NewQuestionActivity : AppCompatActivity() {
 
@@ -50,7 +51,7 @@ class NewQuestionActivity : AppCompatActivity() {
             new_question_a3.text.toString(),
             new_question_a4.text.toString(),
             FirebaseAuth.getInstance().currentUser?.uid ?: "",
-            "en",
+            Locale.getDefault().getLanguage() ,
             correctAnswer, (0..Int.MAX_VALUE).random(), 0, 0, 0, 0, 0, 0, 0
         )
 

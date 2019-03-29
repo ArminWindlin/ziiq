@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="action_settings">Einstellungen</string>
+    <string name="action_my_questions">Meine Fragen</string>
+    <string name="app_name">Ziiq</string>
+    <string name="correct_answer">Korrekt!</string>
+    <string name="wrong_answer">Falsch!</string>
+
+    <!-- MyQuestionActivity -->
+    <string name="mq_solves">Antworten:</string>
+    <string name="make_question">Erstelle deine eigene Frage!</string>
+    <string name="your_question">Deine Frage</string>
+    <string name="sign_in">Login</string>
+    <string name="loading">Lädt..</string>
+</resources>

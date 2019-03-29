@@ -4,10 +4,12 @@
     <string name="action_my_questions">My Questions</string>
     <string name="correct_answer">Correct answer!</string>
     <string name="wrong_answer">Wrong answer!</string>
-
-    <!-- MyQuestionActivity -->
+    <string name="your_question">Your question</string>
+    <string name="make_question">Make your own question!</string>
+    <string name="sign_in">Sign in</string>
     <string name="mq_solves">Solves:</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
+    <string name="loading">Loading...</string>
 </resources>
