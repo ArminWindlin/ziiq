@@ -7,6 +7,7 @@ import android.support.design.widget.Snackbar
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.View
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ListenerRegistration
 import com.xwray.groupie.GroupAdapter
@@ -39,7 +40,11 @@ class MyQuestionsActivity : AppCompatActivity() {
     }
 
     private fun loadQuestions() {
-        FirebaseFirestore.getInstance().collection("questions").get()
+        FirebaseFirestore.getInstance().collection("questions")
+            .whereEqualTo(
+                "user",
+                FirebaseAuth.getInstance().uid ?: throw java.lang.NullPointerException("UID is null")
+            ).get()
             .addOnSuccessListener { result ->
                 val items = mutableListOf<Item>()
                 result!!.documents.forEach {
@@ -69,10 +74,10 @@ class MyQuestionsActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
-    private val onItemClick = OnItemClickListener {item,view ->
-        if(item is QuestionItem){
+    private val onItemClick = OnItemClickListener { item, view ->
+        if (item is QuestionItem) {
             startActivity<QuestionDetailActivity>(
-                "question_text" to item.question.text
+                "question_id" to item.question.id
             )
         }
     }

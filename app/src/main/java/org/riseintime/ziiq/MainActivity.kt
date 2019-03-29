@@ -85,16 +85,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         return when (item.itemId) {
             R.id.action_settings -> {
-                openSettingsActivity()
+                startActivity(Intent(this, SettingsActivity::class.java))
                 true
             }
             R.id.action_my_questions -> {
-                openMyQuestionsActivity()
+                startActivity(Intent(this, MyQuestionsActivity::class.java))
                 true
             }
             else -> super.onOptionsItemSelected(item)
@@ -199,7 +196,8 @@ class MainActivity : AppCompatActivity() {
         }
 
         // Add question percentages
-        val total = question.choice1 + question.choice2 + question.choice3 + question.choice4
+        var total = question.choice1 + question.choice2 + question.choice3 + question.choice4 + 1
+        if (total == 0) total = 1
         main_option_cover_1.text = "\n\n\n" + (question.choice1 * 100 / total).toInt() + "%"
         main_option_cover_2.text = "\n\n\n" + (question.choice2 * 100 / total).toInt() + "%"
         main_option_cover_3.text = "\n\n\n" + (question.choice3 * 100 / total).toInt() + "%"
@@ -272,13 +270,4 @@ class MainActivity : AppCompatActivity() {
             .addOnFailureListener { e -> Log.w(TAG, "Failed to update question $questionId", e) }
     }
 
-    private fun openSettingsActivity() {
-        val intent = Intent(this, SettingsActivity::class.java)
-        startActivity(intent)
-    }
-
-    private fun openMyQuestionsActivity() {
-        val intent = Intent(this, MyQuestionsActivity::class.java)
-        startActivity(intent)
-    }
 }
