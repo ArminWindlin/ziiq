@@ -25,6 +25,7 @@ class NewQuestionActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_new_question)
+        new_question_language_hint.text = "${getString(R.string.langauge)}: ${Locale.getDefault().getDisplayLanguage()}"
     }
 
     fun save(view: View) {
@@ -51,7 +52,7 @@ class NewQuestionActivity : AppCompatActivity() {
             new_question_a3.text.toString(),
             new_question_a4.text.toString(),
             FirebaseAuth.getInstance().currentUser?.uid ?: "",
-            Locale.getDefault().getLanguage() ,
+            Locale.getDefault().getLanguage(),
             correctAnswer, (0..Int.MAX_VALUE).random(), 0, 0, 0, 0, 0, 0, 0
         )
 

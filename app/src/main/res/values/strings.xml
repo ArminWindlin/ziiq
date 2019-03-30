@@ -8,8 +8,13 @@
     <string name="make_question">Make your own question!</string>
     <string name="sign_in">Sign in</string>
     <string name="mq_solves">Solves:</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
     <string name="loading">Loading...</string>
+    <string name="answer_1">Answer 1</string>
+    <string name="answer_2">Answer 2</string>
+    <string name="answer_3">Answer 3</string>
+    <string name="answer_4">Answer 4</string>
+    <string name="save">Save</string>
+    <string name="my_name">My Name</string>
+    <string name="question">Question</string>
+    <string name="langauge">Language</string>
 </resources>
