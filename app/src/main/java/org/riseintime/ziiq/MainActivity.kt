@@ -1,6 +1,7 @@
 package org.riseintime.ziiq
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.support.constraint.ConstraintLayout
 import android.support.design.widget.Snackbar
@@ -26,6 +27,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import org.jetbrains.anko.act
 import java.util.*
+import kotlin.random.Random
 
 
 class MainActivity : AppCompatActivity() {
@@ -106,7 +108,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun submitAnswer(view: View) {
-        if(loading) return
+        if (loading) return
         if (!activeQuestion) return
         activeQuestion = false
 
@@ -210,6 +212,35 @@ class MainActivity : AppCompatActivity() {
         main_option_cover_2.text = "\n\n\n" + (question.choice2 * 100 / total).toInt() + "%"
         main_option_cover_3.text = "\n\n\n" + (question.choice3 * 100 / total).toInt() + "%"
         main_option_cover_4.text = "\n\n\n" + (question.choice4 * 100 / total).toInt() + "%"
+
+        // Change button colors
+        val c11 = Random.nextInt(0, 255)
+        val c12 = Random.nextInt(0, 255)
+        val c13 = Random.nextInt(0, 255)
+        var c21 = c11 + 100
+        if (c21 > 255) c21 = 255
+        var c22 = c12
+        var c23 = c13
+        var c31 = c11
+        var c32 = c12 + 100
+        if (c32 > 255) c32 = 255
+        var c33 = c13
+        var c41 = c11
+        var c42 = c12
+        var c43 = c13 + 100
+        if (c43 > 255) c43 = 255
+        main_option_1.setBackgroundColor(Color.rgb(c11, c12, c13))
+        main_option_2.setBackgroundColor(Color.rgb(c21, c22, c23))
+        main_option_3.setBackgroundColor(Color.rgb(c31, c32, c33))
+        main_option_4.setBackgroundColor(Color.rgb(c41, c42, c43))
+        var fontColor = Color.BLACK
+        if (c11 * 0.299 + c12 * 0.587 + c13 * 0.114 < 186)
+            fontColor = Color.WHITE
+        main_option_1.setTextColor(fontColor)
+        main_option_2.setTextColor(fontColor)
+        main_option_3.setTextColor(fontColor)
+        main_option_4.setTextColor(fontColor)
+
     }
 
     private fun changeUIBack() {
