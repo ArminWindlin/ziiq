@@ -53,22 +53,25 @@ class MainActivity : AppCompatActivity() {
         changeUIBack()
         changeAnswerColors()
         FirebaseFirestore.getInstance().collection("questions")
-            .whereEqualTo(
-                "lang",
-                Locale.getDefault().getLanguage()
-            )
+            .whereEqualTo("lang", Locale.getDefault().getLanguage())
             .whereLessThan("randomInt", (0..Int.MAX_VALUE).random())
             .orderBy("randomInt", Query.Direction.DESCENDING).limit(1).get()
             .addOnSuccessListener { result ->
-                question = result.first().toObject(Question::class.java)
-                questionId = question.id
-                main_question_text.text = question.text
-                main_option_1.text = question.answer1
-                main_option_2.text = question.answer2
-                main_option_3.text = question.answer3
-                main_option_4.text = question.answer4
-                correctAnswer = question.correctAnswer
-                loading = false
+                if (result.size() == 0) {
+                    // redirect in case no question in appropriate language
+                    startActivity(Intent(this, MyQuestionsActivity::class.java))
+                } else {
+                    // set question
+                    question = result.first().toObject(Question::class.java)
+                    questionId = question.id
+                    main_question_text.text = question.text
+                    main_option_1.text = question.answer1
+                    main_option_2.text = question.answer2
+                    main_option_3.text = question.answer3
+                    main_option_4.text = question.answer4
+                    correctAnswer = question.correctAnswer
+                    loading = false
+                }
             }
             .addOnFailureListener { exception ->
                 Log.d("FIREBASE", "Error getting documents: ", exception)
