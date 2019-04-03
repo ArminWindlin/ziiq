@@ -288,7 +288,7 @@ class MainActivity : AppCompatActivity() {
         main_option_3.setBackgroundColor(Color.rgb(c31, c32, c33))
         main_option_4.setBackgroundColor(Color.rgb(c41, c42, c43))
         var fontColor = Color.BLACK
-        if (c11 * 0.299 + c12 * 0.587 + c13 * 0.114 < 186)
+        if (c11 * 0.299 + c12 * 0.587 + c13 * 0.114 < 120)
             fontColor = Color.WHITE
         main_option_1.setTextColor(fontColor)
         main_option_2.setTextColor(fontColor)

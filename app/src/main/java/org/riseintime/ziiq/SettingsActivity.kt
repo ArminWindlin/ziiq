@@ -12,6 +12,9 @@ import org.jetbrains.anko.intentFor
 import org.jetbrains.anko.newTask
 import org.jetbrains.anko.support.v4.intentFor
 import org.riseintime.ziiq.util.FirestoreUtil
+import android.content.Intent
+import android.net.Uri
+
 
 class SettingsActivity : AppCompatActivity() {
 
@@ -39,5 +42,10 @@ class SettingsActivity : AppCompatActivity() {
             .addOnCompleteListener {
                 startActivity(intentFor<SignInActivity>().newTask().clearTask())
             }
+    }
+
+    fun viewPrivacyPolicy(view: View) {
+        val uri = Uri.parse("http://privacy.ziiq.rocks/")
+        startActivity(Intent(Intent.ACTION_VIEW, uri))
     }
 }
