@@ -51,7 +51,6 @@ class MainActivity : AppCompatActivity() {
     private fun initializeQuestion() {
         activeQuestion = true
         changeUIBack()
-        changeAnswerColors()
         FirebaseFirestore.getInstance().collection("questions")
             .whereEqualTo("lang", Locale.getDefault().getLanguage())
             .whereLessThan("randomInt", (0..Int.MAX_VALUE).random())
@@ -80,7 +79,6 @@ class MainActivity : AppCompatActivity() {
 
     fun newQuestion(view: View) {
         initializeQuestion()
-        changeAnswerColors()
         var like = false
         when (view.getId()) {
             R.id.main_button_dislike ->
@@ -153,50 +151,51 @@ class MainActivity : AppCompatActivity() {
         // Mark selected answer
         when (selectedAnswer) {
             1 -> {
-                val cover1 = findViewById<View>(R.id.main_option_cover_1) as Button
-                cover1.setBackgroundResource(R.drawable.button_border_red)
+                val cover1 = findViewById<View>(R.id.main_option_1) as Button
+                cover1.setBackgroundResource(R.drawable.button_option_red)
             }
             2 -> {
-                val cover2 = findViewById<View>(R.id.main_option_cover_2) as Button
-                cover2.setBackgroundResource(R.drawable.button_border_red)
+                val cover2 = findViewById<View>(R.id.main_option_2) as Button
+                cover2.setBackgroundResource(R.drawable.button_option_red)
             }
             3 -> {
-                val cover3 = findViewById<View>(R.id.main_option_cover_3) as Button
-                cover3.setBackgroundResource(R.drawable.button_border_red)
+                val cover3 = findViewById<View>(R.id.main_option_3) as Button
+                cover3.setBackgroundResource(R.drawable.button_option_red)
             }
             4 -> {
-                val cover4 = findViewById<View>(R.id.main_option_cover_4) as Button
-                cover4.setBackgroundResource(R.drawable.button_border_red)
+                val cover4 = findViewById<View>(R.id.main_option_4) as Button
+                cover4.setBackgroundResource(R.drawable.button_option_red)
             }
         }
 
         // Mark correct answer
         when (correctAnswer) {
             1 -> {
-                val cover1 = findViewById<View>(R.id.main_option_cover_1) as Button
-                cover1.setBackgroundResource(R.drawable.button_border_green)
+                val cover1 = findViewById<View>(R.id.main_option_1) as Button
+                cover1.setBackgroundResource(R.drawable.button_option_green)
             }
             2 -> {
-                val cover2 = findViewById<View>(R.id.main_option_cover_2) as Button
-                cover2.setBackgroundResource(R.drawable.button_border_green)
+                val cover2 = findViewById<View>(R.id.main_option_2) as Button
+                cover2.setBackgroundResource(R.drawable.button_option_green)
             }
             3 -> {
-                val cover3 = findViewById<View>(R.id.main_option_cover_3) as Button
-                cover3.setBackgroundResource(R.drawable.button_border_green)
+                val cover3 = findViewById<View>(R.id.main_option_3) as Button
+                cover3.setBackgroundResource(R.drawable.button_option_green)
             }
             4 -> {
-                val cover4 = findViewById<View>(R.id.main_option_cover_4) as Button
-                cover4.setBackgroundResource(R.drawable.button_border_green)
+                val cover4 = findViewById<View>(R.id.main_option_4) as Button
+                cover4.setBackgroundResource(R.drawable.button_option_green)
             }
         }
 
         // Add question percentages
         var total = question.choice1 + question.choice2 + question.choice3 + question.choice4 + 1
         if (total == 0) total = 1
-        main_option_cover_1.text = "\n\n\n" + (question.choice1 * 100 / total).toInt() + "%"
-        main_option_cover_2.text = "\n\n\n" + (question.choice2 * 100 / total).toInt() + "%"
-        main_option_cover_3.text = "\n\n\n" + (question.choice3 * 100 / total).toInt() + "%"
-        main_option_cover_4.text = "\n\n\n" + (question.choice4 * 100 / total).toInt() + "%"
+
+        main_option_1.text = question.answer1 + "\n\n" + (question.choice1 * 100 / total).toInt() + "%"
+        main_option_2.text = question.answer2 + "\n\n" + (question.choice2 * 100 / total).toInt() + "%"
+        main_option_3.text = question.answer3 + "\n\n" + (question.choice3 * 100 / total).toInt() + "%"
+        main_option_4.text = question.answer4 + "\n\n" + (question.choice4 * 100 / total).toInt() + "%"
 
     }
 
@@ -224,14 +223,14 @@ class MainActivity : AppCompatActivity() {
         resultText.text = ""
 
         // remove answer marks
-        val cover1 = findViewById<View>(R.id.main_option_cover_1) as Button
-        cover1.setBackgroundResource(R.color.transparent)
-        val cover2 = findViewById<View>(R.id.main_option_cover_2) as Button
-        cover2.setBackgroundResource(R.color.transparent)
-        val cover3 = findViewById<View>(R.id.main_option_cover_3) as Button
-        cover3.setBackgroundResource(R.color.transparent)
-        val cover4 = findViewById<View>(R.id.main_option_cover_4) as Button
-        cover4.setBackgroundResource(R.color.transparent)
+        val cover1 = findViewById<View>(R.id.main_option_1) as Button
+        cover1.setBackgroundResource(R.drawable.button_option_common)
+        val cover2 = findViewById<View>(R.id.main_option_2) as Button
+        cover2.setBackgroundResource(R.drawable.button_option_common)
+        val cover3 = findViewById<View>(R.id.main_option_3) as Button
+        cover3.setBackgroundResource(R.drawable.button_option_common)
+        val cover4 = findViewById<View>(R.id.main_option_4) as Button
+        cover4.setBackgroundResource(R.drawable.button_option_common)
         // remove percentages
         main_option_cover_1.text = ""
         main_option_cover_2.text = ""
