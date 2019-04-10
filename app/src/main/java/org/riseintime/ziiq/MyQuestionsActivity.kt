@@ -1,27 +1,22 @@
 package org.riseintime.ziiq
 
 import android.content.Intent
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.support.design.widget.Snackbar
+import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.View
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.ListenerRegistration
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.OnItemClickListener
 import com.xwray.groupie.Section
 import com.xwray.groupie.ViewHolder
 import com.xwray.groupie.kotlinandroidextensions.Item
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_my_questions.*
-import kotlinx.android.synthetic.main.fragment_my_account.*
 import org.jetbrains.anko.startActivity
 import org.riseintime.ziiq.model.Question
 import org.riseintime.ziiq.recyclerview.item.QuestionItem
-import org.riseintime.ziiq.util.FirestoreUtil
 import java.util.*
 
 class MyQuestionsActivity : AppCompatActivity() {
@@ -70,7 +65,6 @@ class MyQuestionsActivity : AppCompatActivity() {
                 setOnItemClickListener(onItemClick)
             }
         }
-
     }
 
     fun openMyQuestionsActivity() {
