@@ -15,7 +15,7 @@ class RankingAdapter(private val users: List<User>) :
     // Complex data items may need more than one view per item, and
     // you provide access to all the views for a data item in a view holder.
     // Each data item is just a string in this case that is shown in a TextView.
-    class RankingViewHolder(rankingItem: View) : RecyclerView.ViewHolder(rankingItem){
+    class RankingViewHolder(rankingItem: View) : RecyclerView.ViewHolder(rankingItem) {
         val rank: TextView = rankingItem.findViewById(R.id.ranking_user_item_rank)
         val userName: TextView = rankingItem.findViewById(R.id.ranking_user_item_user)
         val points: TextView = rankingItem.findViewById(R.id.ranking_user_item_point)
@@ -37,7 +37,8 @@ class RankingAdapter(private val users: List<User>) :
         // - replace the contents of the view with that element
         holder.rank.text = (position + 1).toString()
         holder.userName.text = users[position].name
-        holder.points.text = users[position].points.toString() + " Points"
+        holder.points.text =
+            users[position].points.toString() + " " + holder.itemView.context.getString(R.string.points)
     }
 
     // Return the size of your dataset (invoked by the layout manager)

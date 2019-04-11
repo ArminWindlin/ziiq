@@ -1,15 +1,13 @@
 package org.riseintime.ziiq
 
 import android.content.Intent
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.support.constraint.ConstraintLayout
+import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.Button
-import android.widget.TextView
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_question_detail.*
 import org.riseintime.ziiq.model.Question
@@ -19,7 +17,6 @@ class QuestionDetailActivity : AppCompatActivity() {
     private val TAG = MainActivity::class.java.simpleName
 
     private var correctAnswer: Int = 0
-    private var selectedAnswer: Int = -1
     private var activeQuestion = true
     private lateinit var question: Question
 
@@ -52,20 +49,20 @@ class QuestionDetailActivity : AppCompatActivity() {
                 // Mark correct answer
                 when (correctAnswer) {
                     1 -> {
-                        val cover1 = findViewById<View>(R.id.main_option_cover_1) as Button
-                        cover1.setBackgroundResource(R.drawable.button_border_green)
+                        val cover1 = findViewById<View>(R.id.main_option_1) as Button
+                        cover1.setBackgroundResource(R.drawable.button_option_green)
                     }
                     2 -> {
-                        val cover2 = findViewById<View>(R.id.main_option_cover_2) as Button
-                        cover2.setBackgroundResource(R.drawable.button_border_green)
+                        val cover2 = findViewById<View>(R.id.main_option_2) as Button
+                        cover2.setBackgroundResource(R.drawable.button_option_green)
                     }
                     3 -> {
-                        val cover3 = findViewById<View>(R.id.main_option_cover_3) as Button
-                        cover3.setBackgroundResource(R.drawable.button_border_green)
+                        val cover3 = findViewById<View>(R.id.main_option_3) as Button
+                        cover3.setBackgroundResource(R.drawable.button_option_green)
                     }
                     4 -> {
-                        val cover4 = findViewById<View>(R.id.main_option_cover_4) as Button
-                        cover4.setBackgroundResource(R.drawable.button_border_green)
+                        val cover4 = findViewById<View>(R.id.main_option_4) as Button
+                        cover4.setBackgroundResource(R.drawable.button_option_green)
                     }
                 }
             }
@@ -88,6 +85,10 @@ class QuestionDetailActivity : AppCompatActivity() {
             }
             R.id.action_my_questions -> {
                 startActivity(Intent(this, MyQuestionsActivity::class.java))
+                true
+            }
+            R.id.action_ranking -> {
+                startActivity(Intent(this, RankingActivity::class.java))
                 true
             }
             else -> super.onOptionsItemSelected(item)

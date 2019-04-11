@@ -20,4 +20,6 @@
     <string name="my_name">Mein Name</string>
     <string name="question">Frage</string>
     <string name="langauge">Sprache</string>
+    <string name="ranking">Rangliste</string>
+    <string name="points">Punkte</string>
 </resources>

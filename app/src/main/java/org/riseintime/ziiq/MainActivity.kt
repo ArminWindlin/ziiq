@@ -4,28 +4,20 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.support.constraint.ConstraintLayout
-import android.support.design.widget.Snackbar
-import android.support.v4.app.Fragment
-import android.support.v7.app.AlertDialog
-import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.Button
-import android.widget.Toast
-import com.google.firebase.firestore.DocumentReference
+import android.widget.TextView
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
-
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
-import org.riseintime.ziiq.fragment.MyAccountFragment
 import org.riseintime.ziiq.model.Question
-import org.riseintime.ziiq.recyclerview.item.QuestionItem
-import android.widget.LinearLayout
-import android.widget.TextView
-import org.jetbrains.anko.act
+import org.riseintime.ziiq.util.FirestoreKey
 import java.util.*
 import kotlin.random.Random
 
@@ -36,6 +28,7 @@ class MainActivity : AppCompatActivity() {
 
     private var correctAnswer: Int = 0
     private var selectedAnswer: Int = -1
+    private var points: Int = 0
     private var activeQuestion = true
     private var loading = true
     private lateinit var questionId: String
@@ -149,22 +142,27 @@ class MainActivity : AppCompatActivity() {
             resultText.text = getString(R.string.wrong_answer)
 
         // Mark selected answer
+        var selectedChoice = 1
         when (selectedAnswer) {
             1 -> {
                 val cover1 = findViewById<View>(R.id.main_option_1) as Button
                 cover1.setBackgroundResource(R.drawable.button_option_red)
+                selectedChoice = question.choice1
             }
             2 -> {
                 val cover2 = findViewById<View>(R.id.main_option_2) as Button
                 cover2.setBackgroundResource(R.drawable.button_option_red)
+                selectedChoice = question.choice2
             }
             3 -> {
                 val cover3 = findViewById<View>(R.id.main_option_3) as Button
                 cover3.setBackgroundResource(R.drawable.button_option_red)
+                selectedChoice = question.choice3
             }
             4 -> {
                 val cover4 = findViewById<View>(R.id.main_option_4) as Button
                 cover4.setBackgroundResource(R.drawable.button_option_red)
+                selectedChoice = question.choice4
             }
         }
 
@@ -197,6 +195,14 @@ class MainActivity : AppCompatActivity() {
         main_option_3.text = question.answer3 + "\n\n" + (question.choice3 * 100 / total).toInt() + "%"
         main_option_4.text = question.answer4 + "\n\n" + (question.choice4 * 100 / total).toInt() + "%"
 
+        // Calculate Points
+        if (selectedAnswer == correctAnswer) {
+            points = 10 - (selectedChoice * 10 / total)
+            resultText.text = "${getString(R.string.correct_answer)} (+$points ${getString(R.string.points)})"
+        } else {
+            points = (selectedChoice * 10 / total) - 10
+            resultText.text = "${getString(R.string.wrong_answer)} ($points ${getString(R.string.points)})"
+        }
     }
 
 
@@ -239,27 +245,30 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun updateQuestion(like: Boolean) {
-        val qDocRef = FirebaseFirestore.getInstance().collection("questions").document(questionId)
+        val qDocRef = FirebaseFirestore.getInstance().collection(FirestoreKey.QUESTIONS).document(questionId)
+        val uDocRef =
+            FirebaseFirestore.getInstance().collection(FirestoreKey.USERS).document(FirebaseAuth.getInstance().uid!!)
 
         db.runTransaction { transaction ->
-            val snapshot = transaction.get(qDocRef)
-            val newSolves = snapshot.getLong("solves")!! + 1
+            val snapshotQ = transaction.get(qDocRef)
+            val snapshotU = transaction.get(uDocRef)
+            val newSolves = snapshotQ.getLong("solves")!! + 1
             transaction.update(qDocRef, "solves", newSolves)
             if (like)
-                transaction.update(qDocRef, "likes", snapshot.getLong("likes")!! + 1)
+                transaction.update(qDocRef, "likes", snapshotQ.getLong("likes")!! + 1)
             else
-                transaction.update(qDocRef, "dislikes", snapshot.getLong("dislikes")!! + 1)
+                transaction.update(qDocRef, "dislikes", snapshotQ.getLong("dislikes")!! + 1)
             when (selectedAnswer) {
                 1 ->
-                    transaction.update(qDocRef, "choice1", snapshot.getLong("choice1")!! + 1)
+                    transaction.update(qDocRef, "choice1", snapshotQ.getLong("choice1")!! + 1)
                 2 ->
-                    transaction.update(qDocRef, "choice2", snapshot.getLong("choice2")!! + 1)
+                    transaction.update(qDocRef, "choice2", snapshotQ.getLong("choice2")!! + 1)
                 3 ->
-                    transaction.update(qDocRef, "choice3", snapshot.getLong("choice3")!! + 1)
+                    transaction.update(qDocRef, "choice3", snapshotQ.getLong("choice3")!! + 1)
                 4 ->
-                    transaction.update(qDocRef, "choice4", snapshot.getLong("choice4")!! + 1)
+                    transaction.update(qDocRef, "choice4", snapshotQ.getLong("choice4")!! + 1)
             }
-
+            transaction.update(uDocRef, "points", Math.abs(snapshotU.getLong("points")!! + points))
             // Success
             null
         }.addOnSuccessListener { Log.d(TAG, "Increased solves of question! $questionId") }

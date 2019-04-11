@@ -1,4 +1,4 @@
-package org.riseintime.ziiq
+package org.riseintime.ziiq.util
 
 class FirestoreKey {
     companion object {

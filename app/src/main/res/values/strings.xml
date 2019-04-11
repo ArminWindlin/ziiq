@@ -19,4 +19,5 @@
     <string name="langauge">Language</string>
     <string name="privacy_policy" translatable="false">Privacy Policy</string>
     <string name="ranking">Ranking</string>
+    <string name="points">Points</string>
 </resources>
