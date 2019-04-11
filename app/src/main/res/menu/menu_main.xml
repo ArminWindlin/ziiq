@@ -10,4 +10,8 @@
           android:title="@string/action_my_questions"
           android:orderInCategory="100"
           app:showAsAction="never"/>
+    <item android:id="@+id/action_ranking"
+          android:title="@string/ranking"
+          android:orderInCategory="100"
+          app:showAsAction="never"/>
 </menu>

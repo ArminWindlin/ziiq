@@ -310,6 +310,10 @@ class MainActivity : AppCompatActivity() {
                 startActivity(Intent(this, MyQuestionsActivity::class.java))
                 true
             }
+            R.id.action_ranking -> {
+                startActivity(Intent(this, RankingActivity::class.java))
+                true
+            }
             else -> super.onOptionsItemSelected(item)
         }
     }

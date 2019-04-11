@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/cardView_item_ranking_user"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp"
+        android:foreground="?android:attr/selectableItemBackground"
+        app:cardBackgroundColor="#70ffffff"
+        android:clickable="true"
+        android:focusable="true"
+        app:cardCornerRadius="4dp"
+        app:cardElevation="4dp">
+
+    <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        <TextView
+                android:id="@+id/ranking_user_item_rank"
+                android:layout_width="34dp"
+                android:maxWidth="100dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:textSize="24sp"
+                android:gravity="center"
+                android:textColor="@android:color/white"
+                android:background="@drawable/squircle_black"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toLeftOf="@id/ranking_user_item_user"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat"
+                tools:text="1"/>
+        <TextView
+                android:id="@+id/ranking_user_item_user"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toRightOf="@id/ranking_user_item_rank"
+                app:layout_constraintRight_toLeftOf="@id/ranking_user_item_point"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintHorizontal_bias="0"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat"
+                tools:text="User452"/>
+
+        <TextView
+                android:id="@+id/ranking_user_item_point"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:layout_marginEnd="5dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toRightOf="@id/ranking_user_item_user"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintHorizontal_bias="1"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+                tools:text="128 Points"/>
+    </android.support.constraint.ConstraintLayout>
+
+</android.support.v7.widget.CardView>
