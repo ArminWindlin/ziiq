@@ -1,19 +1,18 @@
 package org.riseintime.ziiq
 
-import android.support.v7.app.AppCompatActivity
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import com.firebase.ui.auth.AuthUI
 import kotlinx.android.synthetic.main.fragment_my_account.*
-import kotlinx.android.synthetic.main.fragment_my_account.view.*
 import org.jetbrains.anko.clearTask
 import org.jetbrains.anko.intentFor
 import org.jetbrains.anko.newTask
-import org.jetbrains.anko.support.v4.intentFor
 import org.riseintime.ziiq.util.FirestoreUtil
-import android.content.Intent
-import android.net.Uri
 
 
 class SettingsActivity : AppCompatActivity() {
@@ -34,6 +33,7 @@ class SettingsActivity : AppCompatActivity() {
 
     fun save(view: View) {
         FirestoreUtil.updateCurrentUser(editText_name.text.toString(), editText_bio.text.toString())
+        Toast.makeText(this, "Updated", Toast.LENGTH_LONG).show()
     }
 
     fun signOut(view: View) {

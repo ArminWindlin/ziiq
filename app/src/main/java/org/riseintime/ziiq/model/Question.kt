@@ -1,5 +1,8 @@
 package org.riseintime.ziiq.model
 
+import com.google.firebase.firestore.ServerTimestamp
+import com.google.firebase.Timestamp
+
 data class Question(
     val id: String,
     val text: String,
@@ -17,7 +20,8 @@ data class Question(
     val choice3: Int,
     val choice4: Int,
     val likes: Int,
-    val dislikes: Int
+    val dislikes: Int,
+    @ServerTimestamp val timestamp: Timestamp? = null
 ) {
     constructor() : this(
         "", "", "", "", "", "", "", "",

@@ -36,7 +36,9 @@ class RankingAdapter(private val users: List<User>) :
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
         holder.rank.text = (position + 1).toString()
-        holder.userName.text = users[position].name
+        var username = users[position].name
+        if (username.length > 16) username = username.substring(0, 16) + "..."
+        holder.userName.text = username
         holder.points.text =
             users[position].points.toString() + " " + holder.itemView.context.getString(R.string.points)
     }

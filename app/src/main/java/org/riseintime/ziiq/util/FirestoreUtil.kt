@@ -4,6 +4,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 import org.riseintime.ziiq.model.User
+import java.util.*
 
 object FirestoreUtil {
     private val firestoreInstance: FirebaseFirestore by lazy { FirebaseFirestore.getInstance() }
@@ -19,7 +20,7 @@ object FirestoreUtil {
             if (!documentSnapshot.exists()) {
                 val newUser = User(
                     FirebaseAuth.getInstance().currentUser?.displayName ?: "", 0,
-                    "", 0
+                    "", 0, Locale.getDefault().getLanguage()
                 )
                 currentUserDocRef.set(newUser).addOnSuccessListener {
                     onComplete()
