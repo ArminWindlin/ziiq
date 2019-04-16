@@ -9,9 +9,7 @@ import com.google.firebase.auth.FirebaseAuth
 import org.riseintime.ziiq.R
 import org.riseintime.ziiq.model.User
 
-class RankingAdapter(private val users: List<User>) :
-
-    RecyclerView.Adapter<RankingAdapter.RankingViewHolder>() {
+class RankingAdapter(private val users: List<User>) : RecyclerView.Adapter<RankingAdapter.RankingViewHolder>() {
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
@@ -45,7 +43,7 @@ class RankingAdapter(private val users: List<User>) :
         holder.userName.text = username
         holder.points.text =
             users[position].points.toString() + " " + holder.itemView.context.getString(R.string.points)
-        
+
         if (users[position].id == holder.userId)
             holder.card.setBackgroundResource(R.drawable.button_option_green)
     }
