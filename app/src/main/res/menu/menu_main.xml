@@ -2,16 +2,16 @@
       xmlns:app="http://schemas.android.com/apk/res-auto"
       xmlns:tools="http://schemas.android.com/tools"
       tools:context="org.riseintime.ziiq.MainActivity">
-    <item android:id="@+id/action_settings"
-          android:title="@string/action_settings"
+    <item android:id="@+id/action_ranking"
+          android:title="@string/ranking"
           android:orderInCategory="100"
           app:showAsAction="never"/>
     <item android:id="@+id/action_my_questions"
           android:title="@string/action_my_questions"
           android:orderInCategory="100"
           app:showAsAction="never"/>
-    <item android:id="@+id/action_ranking"
-          android:title="@string/ranking"
+    <item android:id="@+id/action_settings"
+          android:title="@string/action_settings"
           android:orderInCategory="100"
           app:showAsAction="never"/>
 </menu>

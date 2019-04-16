@@ -5,10 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import com.google.firebase.auth.FirebaseAuth
 import org.riseintime.ziiq.R
 import org.riseintime.ziiq.model.User
 
 class RankingAdapter(private val users: List<User>) :
+
     RecyclerView.Adapter<RankingAdapter.RankingViewHolder>() {
 
     // Provide a reference to the views for each data item
@@ -19,6 +21,8 @@ class RankingAdapter(private val users: List<User>) :
         val rank: TextView = rankingItem.findViewById(R.id.ranking_user_item_rank)
         val userName: TextView = rankingItem.findViewById(R.id.ranking_user_item_user)
         val points: TextView = rankingItem.findViewById(R.id.ranking_user_item_point)
+        val card = rankingItem.findViewById<View>(R.id.cardView_item_ranking_user) as View
+        val userId = FirebaseAuth.getInstance().uid ?: throw java.lang.NullPointerException("UID is null")
     }
 
 
@@ -41,6 +45,9 @@ class RankingAdapter(private val users: List<User>) :
         holder.userName.text = username
         holder.points.text =
             users[position].points.toString() + " " + holder.itemView.context.getString(R.string.points)
+        
+        if (users[position].id == holder.userId)
+            holder.card.setBackgroundResource(R.drawable.button_option_green)
     }
 
     // Return the size of your dataset (invoked by the layout manager)

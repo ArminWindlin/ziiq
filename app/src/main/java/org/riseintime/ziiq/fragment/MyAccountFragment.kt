@@ -30,7 +30,7 @@ class MyAccountFragment : Fragment() {
 
         view.apply {
             btn_save.setOnClickListener {
-                FirestoreUtil.updateCurrentUser(editText_name.text.toString(), editText_bio.text.toString())
+                FirestoreUtil.updateCurrentUser(editText_name.text.toString())
             }
             btn_sign_out.setOnClickListener {
                 AuthUI.getInstance()
@@ -50,7 +50,6 @@ class MyAccountFragment : Fragment() {
         FirestoreUtil.getCurrentUser { user ->
             if (this@MyAccountFragment.isVisible) {
                 editText_name.setText(user.name)
-                editText_bio.setText(user.bio)
             }
         }
     }

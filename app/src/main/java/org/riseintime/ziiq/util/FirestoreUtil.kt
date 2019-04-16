@@ -9,18 +9,22 @@ import java.util.*
 object FirestoreUtil {
     private val firestoreInstance: FirebaseFirestore by lazy { FirebaseFirestore.getInstance() }
 
+    private val userId: String by lazy {
+        FirebaseAuth.getInstance().uid ?: throw java.lang.NullPointerException("UID is null")
+    }
+
     private val currentUserDocRef: DocumentReference
-        get() = firestoreInstance.document(
-            "users/${FirebaseAuth.getInstance().uid
-                ?: throw java.lang.NullPointerException("UID is null")}"
-        )
+        get() = firestoreInstance.document("users/$userId")
 
     fun initCurrentUserIfFirstTime(onComplete: () -> Unit) {
         currentUserDocRef.get().addOnSuccessListener { documentSnapshot ->
             if (!documentSnapshot.exists()) {
                 val newUser = User(
-                    FirebaseAuth.getInstance().currentUser?.displayName ?: "", 0,
-                    "", 0, Locale.getDefault().getLanguage()
+                    userId,
+                    FirebaseAuth.getInstance().currentUser?.displayName ?: "Anonymous" + (0..9999).random(),
+                    0,
+                    0,
+                    Locale.getDefault().getLanguage()
                 )
                 currentUserDocRef.set(newUser).addOnSuccessListener {
                     onComplete()
@@ -31,10 +35,9 @@ object FirestoreUtil {
         }
     }
 
-    fun updateCurrentUser(name: String = "", bio: String = "") {
+    fun updateCurrentUser(name: String = "") {
         val userFieldMap = mutableMapOf<String, Any>()
         if (name.isNotBlank()) userFieldMap["name"] = name
-        if (name.isNotBlank()) userFieldMap["bio"] = bio
         currentUserDocRef.update(userFieldMap)
     }
 

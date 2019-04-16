@@ -46,7 +46,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintHorizontal_bias="0"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat"
-                tools:text="User452 asdfasdfasfasdasdasdfasdasddas"/>
+                tools:text="User452"/>
 
         <TextView
                 android:id="@+id/ranking_user_item_point"

@@ -187,7 +187,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         // Add question percentages
-        var total = question.choice1 + question.choice2 + question.choice3 + question.choice4 + 1
+        var total = question.choice1 + question.choice2 + question.choice3 + question.choice4
         if (total == 0) total = 1
 
         main_option_1.text = question.answer1 + "\n\n" + (question.choice1 * 100 / total).toInt() + "%"

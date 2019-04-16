@@ -27,12 +27,11 @@ class SettingsActivity : AppCompatActivity() {
         Log.d("DEBUG", "STARTED SETTINGS ACTIVITY")
         FirestoreUtil.getCurrentUser { user ->
             editText_name.setText(user.name)
-            editText_bio.setText(user.bio)
         }
     }
 
     fun save(view: View) {
-        FirestoreUtil.updateCurrentUser(editText_name.text.toString(), editText_bio.text.toString())
+        FirestoreUtil.updateCurrentUser(editText_name.text.toString())
         Toast.makeText(this, "Updated", Toast.LENGTH_LONG).show()
     }
 
