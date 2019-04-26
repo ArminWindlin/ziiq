@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.Log
+import android.view.View
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import org.riseintime.ziiq.adapter.RankingAdapter
@@ -27,6 +28,8 @@ class RankingActivity : AppCompatActivity() {
             .addOnSuccessListener { result ->
                 val users = result.toObjects(User::class.java)
                 initRecyclerView(users)
+                val spinner = findViewById<View>(R.id.spinner_ranking)
+                spinner.visibility = View.GONE
             }
             .addOnFailureListener { exception ->
                 Log.d("FIREBASE", "Error getting documents: ", exception)

@@ -46,6 +46,8 @@ class RankingAdapter(private val users: List<User>) : RecyclerView.Adapter<Ranki
 
         if (users[position].id == holder.userId)
             holder.card.setBackgroundResource(R.drawable.button_option_green)
+        else
+            holder.card.setBackgroundResource(R.drawable.item_background_transparent)
     }
 
     // Return the size of your dataset (invoked by the layout manager)

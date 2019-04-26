@@ -197,10 +197,10 @@ class MainActivity : AppCompatActivity() {
 
         // Calculate Points
         if (selectedAnswer == correctAnswer) {
-            points = 10 - (selectedChoice * 10 / total)
+            points = 10 - (selectedChoice * 10 / total) + 2
             resultText.text = "${getString(R.string.correct_answer)} (+$points ${getString(R.string.points)})"
         } else {
-            points = (selectedChoice * 10 / total) - 10
+            points = ((selectedChoice * 10 / total) - 10) / 2
             resultText.text = "${getString(R.string.wrong_answer)} ($points ${getString(R.string.points)})"
         }
     }
