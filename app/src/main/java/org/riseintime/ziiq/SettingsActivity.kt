@@ -44,7 +44,7 @@ class SettingsActivity : AppCompatActivity() {
     }
 
     fun viewPrivacyPolicy(view: View) {
-        val uri = Uri.parse("http://privacy.ziiq.rocks/")
+        val uri = Uri.parse("https://arminwindlin.github.io/ziiq-pp/")
         startActivity(Intent(Intent.ACTION_VIEW, uri))
     }
 }
